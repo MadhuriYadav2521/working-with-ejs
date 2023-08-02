@@ -15,7 +15,8 @@
   <div class="container">
     <h2>Category Master</h2>
     <a class="nav-item btn btn-primary" href="/category/addCategory">Add Category</a>
-    <table class="table">
+    <a class="nav-item btn btn-primary"style="float: right;" href="/">Go to Dashboard</a><br><br>
+    <table class="table table-bordered">
       <thead>
         <tr>
           <th>Category ID</th>
@@ -26,8 +27,17 @@
       <tbody>
         <% category.forEach((y)=> { %>
           <tr>
-            <td><%= y._id %></td>
-            <td><%= y.categoryName %></td>
+            <td>
+              <%= y._id %>
+            </td>
+            <td>
+              <%= y.categoryName %>
+            </td>
+            <td>
+              <a class="nav-link btn btn-info" href="/category/details/<%= y._id %>">Details</a>
+              <a class="nav-link btn btn-success" href="/category/update/<%= y._id %>">Update</a>
+              <a class="nav-link btn btn-danger" href="/category/delete/<%= y._id %>">Delete</a>
+            </td>
           </tr>
           <% }) %>
       </tbody>
