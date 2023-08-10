@@ -1,4 +1,5 @@
 import Users from "../modals/userModal.js"
+import Candidates from "../modals/candidateModal.js"
 import bcrypt from "bcrypt"
 import session from "express-session"
 
@@ -63,7 +64,9 @@ export const login = async (req,res) => {
 
 export const renderVotingPage = async (req,res) =>{
     try{
-        return  res.render('votingPage',{name : req.session.user_id})
+        const candidate = await Candidates.find({}).exec();
+        const voterName = await Users.findById({_id: req.session.user_id})
+        return  res.render('votingPage',{ candidate ,name : voterName.userName})
     }catch(err){
         return res.send(err)
     }
@@ -71,7 +74,14 @@ export const renderVotingPage = async (req,res) =>{
 
 export const votingPage = async (req,res) =>{
     try{
-
+        const {candidateName} = req.body 
+        if(!candidateName) return res.render('votingPage',{message : "Select one candidate!"})
+        console.log(candidateName);
+        const candidate = await Candidates.findOneAndUpdate({ candidateName }, {$push : {votes : req.session.user_id}}).exec();
+        console.log(req.session.user_id);
+        await candidate.save()
+        return res.render('voteSuccess', {message: `Voted successfully for ${candidateName}`})
+        
     }catch(err){
         return res.send(err)
     }
@@ -79,7 +89,8 @@ export const votingPage = async (req,res) =>{
 
 export const renderAdminDashboard = async (req,res) =>{
     try{
-        return res.render('adminDashboard')
+        const candidate = await Candidates.find({}).exec();
+        return res.render('adminDashboard', {candidate})
     }catch(err){
         return res.send(err)
     }

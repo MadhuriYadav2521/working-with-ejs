@@ -7,7 +7,7 @@ import { Schema } from "mongoose";
         type : mongoose.Schema.Types.ObjectId,
         ref: "Users"
     }]
+ }, { timestamps : true }
+ )
 
- })
-
- export default mongoose.model("Candidates", candidateSchema)
+export default mongoose.model("Candidates", candidateSchema)

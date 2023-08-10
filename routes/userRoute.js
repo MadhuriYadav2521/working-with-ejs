@@ -1,5 +1,5 @@
 import express from "express"
-import { login, register, renderAdminDashboard, renderLogin, renderRegister, renderVotingPage } from "../conrtollers/userController.js"
+import { login, register, renderAdminDashboard, renderLogin, renderRegister, renderVotingPage, votingPage } from "../conrtollers/userController.js"
 import { isAdminLogin, isLogin, isLogout, isUserLogin } from "../middlewares/auth.js";
 
 const userRouter = express.Router()
@@ -9,6 +9,7 @@ userRouter.post('/register',register);
 userRouter.get('/',isLogout,renderLogin);
 userRouter.post('/',login);
 userRouter.get('/votingPage',isLogin,isUserLogin,renderVotingPage)
+userRouter.post('/votingPage',votingPage)
 userRouter.get('/adminDashboard',isLogin,isAdminLogin,renderAdminDashboard)
 
 
