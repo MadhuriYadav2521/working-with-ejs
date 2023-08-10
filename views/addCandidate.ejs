@@ -13,7 +13,21 @@
 <body>
     <div class="container">
         <h1>Add Candidate</h1>
+        <form action="/addCandidate" method="post">
+            <div class="form-group">
+                <label for="name">Candidate Name:</label>
+                <input name="candidateName" type="text" class="form-control">
+            </div>
+            <input type="submit" value="Submit" class="btn btn-primary"><br><br>
+        </form>
         <a href="/adminDashboard" class="nav-link btn btn-warning">Back</a>
+        <% if (typeof message !=='undefined' || typeof success!== 'undefined' ){ %>
+            <h5 style="color: brown;">Message: <%= message %>
+            </h5>
+            <% }else{ %>
+                <h5 style="color: green;">Message: <%= success %>
+                </h5>
+          <%  } %>
     </div>
 </body>
 
