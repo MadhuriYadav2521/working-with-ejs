@@ -64,20 +64,30 @@ export const login = async (req,res) => {
 
 export const renderVotingPage = async (req,res) =>{
     try{
-        const candidate = await Candidates.find({}).exec();
-        const voterName = await Users.findById({_id: req.session.user_id})
-        return  res.render('votingPage',{ candidate ,name : voterName.userName})
+        const id = req.session.user_id
+        const rCandidate = await Candidates.find({}).exec();
+        const voterName = await Users.findById({_id: id})
+        const votedCandidate = await Candidates.findOne({votes : id}).exec();
+        return  res.render('votingPage',{ rCandidate ,vname : voterName.userName, votedCandidate})
     }catch(err){
         return res.send(err)
     }
 }
+// if candidate is voted make sure voter dont go to voting page again, set middleware
 
 export const votingPage = async (req,res) =>{
     try{
+        // to use multiple times session id store it in variable: id = req.session.user_id
+        const id = req.session.user_id
         const {candidateName} = req.body 
-        if(!candidateName) return res.render('votingPage',{message : "Select one candidate!"})
+        const voterName = await Users.findById({_id: id})
+        const rCandidate = await Candidates.find({}).exec();
+        const votedCandidate = await Candidates.findOne({votes : id}).exec();
+        // while rendering page again send all data that is required. Ex. data of get method.
+        if(votedCandidate) return res.render('votingPage',{votedCandidate})
+        if(!candidateName) return res.render('votingPage',{rCandidate,vname : voterName.userName, message : "Select one candidate!"})
         console.log(candidateName);
-        const candidate = await Candidates.findOneAndUpdate({ candidateName }, {$push : {votes : req.session.user_id}}).exec();
+        const candidate = await Candidates.findOneAndUpdate({ candidateName }, {$push : {votes : id}}).exec();
         console.log(req.session.user_id);
         await candidate.save()
         return res.render('voteSuccess', {message: `Voted successfully for ${candidateName}`})

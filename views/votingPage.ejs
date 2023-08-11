@@ -11,14 +11,22 @@
 <body>
     <div class="container">
     <h1>Voting Page</h1><br>
-     <h4>Voter name = <%= name  %> </h4><hr>
+     <h4>Voter name = <%= vname  %> </h4><hr>
+     <% if (votedCandidate) { %>
+        <h3 style="color: green;">Already Voted for : <%= votedCandidate.candidateName  %></h3>
+    <% }else{  %>
      <form action="/votingPage" method="post">
-        <% candidate.forEach((y) => { %>
+        <% rCandidate.forEach((y) => { %>
             <input type="radio" name="candidateName"  class="form-check-input" value="<%= y.candidateName %>" >
             <label class="form-check-label"><%= y.candidateName %></label><br><br>
         <% }); %>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+    <% if( typeof message !== 'undefined') { %>
+        <h3 style="color: brown;">Message : <%= message  %></h3>
+    <% } %>
+    <% } %>
+
 </div>
 </body>
 </html>

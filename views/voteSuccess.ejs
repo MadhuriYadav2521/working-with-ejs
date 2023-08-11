@@ -9,8 +9,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <% if( typeof message !== 'undefined') { %>
-        <h3>Message : <%= message  %></h3>
-    <% } %>
+    <div class="container pt-3">
+        <% if( typeof message !== 'undefined') { %>
+            <div class="alert alert-success mt-3" >
+                <strong>Message : <%= message  %></strong>
+            </div>
+        <% } %>
+    </div>
+
 </body>
 </html>
