@@ -17,11 +17,14 @@
         <table class="table table-stripped table-bordered">
             <tr>
                 <th>Candidate Name</th>
+                <th>Total Votes</th>
                 <th>Actions</th> 
              </tr>
             <% candidate.forEach((y) => { %>
             <tr>
                 <td><%= y.candidateName  %></td>
+                <td><%= y.votes.length %></td>
+                <!-- <td><%= y.voteCount %></td> -->
                 <td>
                     <a href="/addCandidate" class="nav-link btn btn-info">Details</a>
                 </td> 

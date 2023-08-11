@@ -57,3 +57,18 @@ export const isAdminLogin = async (req, res, next) => {
         return res.send(err)
     }
 }
+
+export const isUserVoted = async (req, res, next) => {
+    try {
+        const id = req.session.user_id
+        const user = await Users.findById({_id: id}).exec();
+        const votedCandidate = await Candidates.findOne({votes : id}).exec();
+        if (votedCandidate) { 
+            return res.render('voteSuccess', { votedCandidate })
+        }
+       
+        next()
+    } catch (err) {
+        return res.send(err)
+    }
+}

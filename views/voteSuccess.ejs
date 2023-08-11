@@ -10,11 +10,12 @@
 </head>
 <body>
     <div class="container pt-3">
-        <% if( typeof message !== 'undefined') { %>
-            <div class="alert alert-success mt-3" >
-                <strong>Message : <%= message  %></strong>
-            </div>
-        <% } %>
+        <% if (votedCandidate) { %>
+            <h3 style="color: green;"> Voted for : <%= votedCandidate.candidateName  %></h3>
+            <form action="/logout" method="POST">
+                <button type="submit" class="btn btn-warning">Logout</button>
+            </form>
+        <% }  %>
     </div>
 
 </body>
