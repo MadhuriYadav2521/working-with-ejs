@@ -13,21 +13,21 @@
 <body>
     <div class="container">
         <h1>Admin Dashboard</h1>
-        <a href="/addCandidate" class="nav-link btn btn-primary">Add Candidate</a><br><br>
+        <a href="/addCandidate" class="nav-link btn btn-primary">Add Candidate</a>
+        <div  style="float: right;">
+            <form action="/logout" method="POST">
+                <button type="submit" class="btn btn-warning">Logout</button>
+            </form>
+        </div><br><br>
         <table class="table table-stripped table-bordered">
             <tr>
                 <th>Candidate Name</th>
                 <th>Total Votes</th>
-                <th>Actions</th> 
              </tr>
             <% candidate.forEach((y) => { %>
             <tr>
                 <td><%= y.candidateName  %></td>
                 <td><%= y.votes.length %></td>
-                <!-- <td><%= y.voteCount %></td> -->
-                <td>
-                    <a href="/addCandidate" class="nav-link btn btn-info">Details</a>
-                </td> 
              </tr>
              <% }) %>
         </table>

@@ -110,7 +110,7 @@ export const renderVoteSuccess = async (req, res) => {
 
 export const renderAdminDashboard = async (req, res) => {
     try {
-        const candidate = await Candidates.find({}).sort({ votes: 1 }).exec();
+        const candidate = await Candidates.find({}).sort({ votes: -1 }).exec();
         return res.render('adminDashboard', { candidate });
     } catch (err) {
         return res.send(err)
